@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  qsign:
+    image: qsign
+    build: 
+      context: ./qsign
+      args:
+        - QSIGN_PROTOCOL_VERSION=8.9.63
+        - PROTOCOL_FIX_PLUGIN_VERSION=v1.12.0
+    container_name: qsign
+    restart: always
+    volumes:
+      - qsign-data:/app/txlib
+  mirai:
+    image: mirai
+    build: 
+      context: ./mirai
+      args: 
+       - MCL_VERSION=v2.1.2
+       - QSIGN_PROTOCOL_VERSION=8.9.63
+       - API_HTTP_PLUGIN_VERSION=v2.9.1
+    container_name: mirai
+    env_file:
+      - .env
+    environment:
+      - QSIGN_URL=http://qsign:8080
+    restart: always
+    tty: true
+    stdin_open: true
+    depends_on:
+      - qsign
+    volumes:
+      - mirai-data:/app/data
+      - mirai-bot-data:/app/bots
+      - mirai-log:/app/logs
+    ports:
+      - 8080:8080
+
+  
+volumes:
+  qsign-data:
+  mirai-bot-data:
+  mirai-data:
+  mirai-log:

@@ -1,0 +1,7 @@
+{
+    "${QSIGN_PROTOCOL_VERSION}": {
+        "base_url": "${QSIGN_URL}",
+        "type": "fuqiuluo/unidbg-fetch-qsign",
+        "key": "114514"
+    }
+}

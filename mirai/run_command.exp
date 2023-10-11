@@ -1,0 +1,15 @@
+#!/bin/expect -f
+
+spawn ./mcl
+
+set timeout 600
+
+expect "started successfully"
+
+expect ">"
+
+send "$argv\r"
+
+send "exit\r"
+
+expect exit

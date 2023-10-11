@@ -1,0 +1,6 @@
+accounts:
+  -
+    account: ${QQ_NUMBER}
+    password:
+        kind: PLAIN
+        value: ${QQ_PASSWORD}
