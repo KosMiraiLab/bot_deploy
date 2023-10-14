@@ -14,7 +14,7 @@ jobs:
         WELCOME: "Deploying"
         LASTSSH: "Starting deploy docker"
       with:
-        host: ${{DEPLOY_HOST}}
+        host: ${{secrets.DEPLOY_HOST}}
         user: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
         port: ${{ secrets.DEPLOY_SSH_PORT }}
