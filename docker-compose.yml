@@ -39,7 +39,7 @@ services:
     env_file:
       - .env
     environment:
-      - MIRAI_QQ="['${QQ_NUMBER}']"
+      - MIRAI_QQ=['${QQ_NUMBER}']
       - MIRAI_HOST=mirai
       - MIRAI_PORT=8080
     depends_on:
