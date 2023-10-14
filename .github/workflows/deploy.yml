@@ -1,0 +1,32 @@
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: deploy to server
+      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      env:
+        WELCOME: "Deploying"
+        LASTSSH: "Starting deploy docker"
+      with:
+        host: ${{DEPLOY_HOST}}
+        user: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+        port: ${{ secrets.DEPLOY_SSH_PORT }}
+        connect_timeout: 10s
+        first_ssh: |
+          rm -rf ~/bot_deploy
+          ls -la  \necho $WELCOME 
+          mkdir -p /home/github/test/test1 && 
+          mkdir -p /home/github/test/test2 &&
+        scp: |
+          './' => ～/bot_deploy
+        last_ssh: |
+          cd ~/bot_deploy &&
+          docker-compose pull &&
+          docker-compose up -d
