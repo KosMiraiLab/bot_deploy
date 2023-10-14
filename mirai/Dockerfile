@@ -1,4 +1,4 @@
-FROM amazoncorretto:11 AS build
+FROM ibm-semeru-runtimes:open-11-jre AS build
 
 ARG MCL_VERSION=v2.1.2
 ARG PROTOCOL_FIX_PLUGIN_VERSION=v1.12.0
@@ -11,7 +11,7 @@ COPY entrypoint.sh /build/
 
 # 安装依赖
 
-RUN yum install expect unzip -y 
+RUN apt-get update && apt-get install expect unzip -y 
 
 # mirai 本体安装
 
@@ -36,7 +36,7 @@ RUN chmod +x ./run_command.exp && \
     chmod +x ./entrypoint.sh && \
     ./run_command.exp protocol fetch ANDROID_PHONE 
 
-FROM amazoncorretto:11 AS execute
+FROM ibm-semeru-runtimes:open-11-jre AS execute
 WORKDIR /app
 
 ARG QSIGN_PROTOCOL_VERSION=8.9.63
@@ -44,7 +44,10 @@ ENV QSIGN_PROTOCOL_VERSION=${QSIGN_PROTOCOL_VERSION}
 
 ENV TEMPLATE_DIR=/template
 
-RUN yum install expect gettext -y
+RUN apt-get update && \
+    apt-get install expect gettext -y && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /build/ /app/
 COPY ./templates /templates
