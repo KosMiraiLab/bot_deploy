@@ -34,10 +34,18 @@ services:
       - mirai-data:/app/data
       - mirai-bot-data:/app/bots
       - mirai-log:/app/logs
-    ports:
-      - 8080:8080
+  cirno:
+    image: ghcr.io/kosmirailab/cirno:main
+    env_file:
+      - .env
+    environment:
+      - MIRAI_QQ=[${QQ_NUMBER}]
+      - MIRAI_HOST=mirai
+      - MIRAI_PORT=8080
+    depends_on:
+      - mirai
 
-  
+
 volumes:
   qsign-data:
   mirai-bot-data:
