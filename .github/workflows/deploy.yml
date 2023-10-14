@@ -22,7 +22,7 @@ jobs:
         first_ssh: |
           rm -rf ~/bot_deploy
         scp: |
-          './' => ～/bot_deploy
+          './' => ~/bot_deploy
         last_ssh: |
           cd ~/bot_deploy &&
           docker-compose pull &&
