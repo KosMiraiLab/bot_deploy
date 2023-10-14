@@ -35,7 +35,7 @@ services:
       - mirai-bot-data:/app/bots
       - mirai-log:/app/logs
   cirno:
-    image: ghcr.io/kosmirailab/cirno
+    image: ghcr.io/kosmirailab/cirno:main
     env_file:
       - .env
     environment:
