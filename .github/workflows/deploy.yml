@@ -21,9 +21,6 @@ jobs:
         connect_timeout: 10s
         first_ssh: |
           rm -rf ~/bot_deploy
-          ls -la  \necho $WELCOME 
-          mkdir -p /home/github/test/test1 && 
-          mkdir -p /home/github/test/test2 &&
         scp: |
           './' => ～/bot_deploy
         last_ssh: |
