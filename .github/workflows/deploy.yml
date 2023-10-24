@@ -26,5 +26,5 @@ jobs:
         last_ssh: |
           cd ~/bot_deploy &&
           cp ~/.env ./ &&
-          docker-compose pull &&
+          docker-compose pull --build &&
           docker-compose up -d
